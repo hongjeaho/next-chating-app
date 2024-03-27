@@ -10,5 +10,5 @@ export default withAuth({
 
 // 로그인한 사용자만 접근 가능
 export const config = {
-  matcher: ["conversations/:path*", "/users/:path*"],
+  matcher: ["/conversations/:path*", "/users/:path*"],
 };
