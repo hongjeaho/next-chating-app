@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  User
+  Admin
+}
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  emailVerified DateTime?
+  image String?
+  conversation Conversation[]
+  observed Observed[]
+  message Message[]
+  userType UserType @default(User)
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
+
+model Conversation {
+  id String @id @default(uuid())
+  createAt DateTime @default(now())
+  lastMessageAt DateTime @default(now())
+  isGroup Boolean
+  
+  messages Message[]
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Message {
+  id String @id @default(uuid())
+  body String?
+  image String?
+  createAt DateTime @default(now())
+  conversationId String
+  createId String
+
+  observed Observed[]
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [createId], references: [id])
+}
+
+model Observed {
+  id String @id @default(uuid()) 
+
+  userId String  
+  messageId String 
+
+  user User @relation(fields: [userId], references: [id])
+  message Message @relation(fields: [messageId], references: [id])
+}
