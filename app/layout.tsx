@@ -19,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthContext>
-        <ToasterContext />
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <ToasterContext />
+          {children}
+        </body>
       </AuthContext>
     </html>
   );
