@@ -1,6 +1,12 @@
-interface Props {}
+import { User } from "@prisma/client";
 
-const SettingsModal: React.FC<Props> = () => {
+interface Props {
+  currentUser: User;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const SettingsModal: React.FC<Props> = ({ currentUser, isOpen }) => {
   return <></>;
 };
 

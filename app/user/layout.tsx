@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 
 interface Props extends PropsWithChildren {}
 
-const ConversationsLayout: React.FC<Props> = ({ children }) => {
+const UserLayout: React.FC<Props> = ({ children }) => {
   return (
     <Sidebar>
       <div className="h-full"> {children} </div>
@@ -11,4 +11,4 @@ const ConversationsLayout: React.FC<Props> = ({ children }) => {
   );
 };
 
-export default ConversationsLayout;
+export default UserLayout;

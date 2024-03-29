@@ -1,6 +1,10 @@
-interface Props {}
+import { User } from "@prisma/client";
 
-const Avatar: React.FC<Props> = () => {
+interface Props {
+  currentUser: User;
+}
+
+const Avatar: React.FC<Props> = ({ currentUser }) => {
   return <></>;
 };
 
