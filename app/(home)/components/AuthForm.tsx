@@ -10,6 +10,7 @@ import Input from "@/components/form/Input";
 import Button from "@/components/form/Button";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import AuthSocialButton from "./AuthSocialButton";
+import { ResponseError } from "@/types";
 
 interface Props {}
 
@@ -30,6 +31,7 @@ const AuthForm: React.FC<Props> = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -46,6 +48,7 @@ const AuthForm: React.FC<Props> = () => {
   }, [session.status, router]);
 
   const toggleVariant = () => {
+    reset();
     if (variant === "LOGIN") {
       setVariant("REGISTER");
       return;
@@ -61,13 +64,16 @@ const AuthForm: React.FC<Props> = () => {
       if (variant === "REGISTER") {
         const response = await axios.post("/api/register", data);
       }
-
       await handlerLoginAction("credentials", {
         email: data.email,
         password: data.password,
       });
     } catch (error) {
-      toast.error("에러가 발생 하였습니다.");
+      const {
+        response: { data },
+      } = error as ResponseError;
+
+      toast.error(data.message);
     } finally {
       setLoading(false);
     }
