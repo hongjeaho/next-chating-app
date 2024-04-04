@@ -42,7 +42,14 @@ const DeskTopSidebar: React.FC<Props> = ({ currentUser }) => {
         <nav className="flex flex-col justify-between mt-4">
           <ul role="list" className="flex flex-col items-center space-y-1">
             {routes.map((route) => (
-              <DeskTopItem key={route.href} />
+              <DeskTopItem
+                key={route.label}
+                href={route.href}
+                label={route.label}
+                icon={route.icon}
+                active={route.active}
+                onClick={route.onClick}
+              />
             ))}
           </ul>
         </nav>
