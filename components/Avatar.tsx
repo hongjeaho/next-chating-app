@@ -2,16 +2,16 @@ import { User } from "@prisma/client";
 import Image from "next/image";
 
 interface Props {
-  currentUser: User;
+  user: User;
 }
 
-const Avatar: React.FC<Props> = ({ currentUser }) => {
+const Avatar: React.FC<Props> = ({ user }) => {
   return (
     <div className="relative">
       <div className="relative inline-block overflow-hidden rounded-full h-9 w-9 md:h-11 md:w-11">
         <Image
           fill
-          src={currentUser?.image || "/images/placeholder.jpg"}
+          src={user?.image || "/images/placeholder.jpg"}
           alt="avatar"
         />
       </div>

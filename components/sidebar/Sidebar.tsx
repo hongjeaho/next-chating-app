@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import DeskTopSidebar from "./DeskTopSidebar";
 import MobileFooter from "./MobileFooter";
-import getCurrentUser from "@/app/(home)/action/getCurrentUser";
+import getCurrentUser from "@/app/action/getCurrentUser";
 
 interface Props extends PropsWithChildren {}
 
