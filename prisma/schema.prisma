@@ -22,12 +22,13 @@ model User {
   password String
   emailVerified DateTime?
   image String?
-  conversation Conversation[]
-  observed Observed[]
-  message Message[]
   userType UserType @default(User)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
+
+  message Message[]
+  observed Observed[]
+  conversationUsers ConversationUsers[]
 }
 
 model Conversation {
@@ -37,13 +38,19 @@ model Conversation {
   isGroup Boolean
   
   messages Message[]
-  
-  userId String
-  conversationUserId String
-
-  user User @relation(fields: [userId], references: [id])
+  conversationUsers ConversationUsers[]
 }
 
+model ConversationUsers {
+  id String @id @default(uuid()) 
+  isOnwer Boolean
+
+  conversationId String
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
 
 model Message {
   id String @id @default(uuid())

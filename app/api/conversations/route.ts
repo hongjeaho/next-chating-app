@@ -12,37 +12,12 @@ export const POST = async (request: Request) => {
   }
 
   const conversation = await prisma.conversation.findMany({
-    where: {
-      OR: [
-        {
-          AND: [
-            {
-              userId: {
-                equals: userId,
-              },
-            },
-            {
-              conversationUserId: {
-                equals: currentUser.id,
-              },
-            },
-          ],
+    include: {
+      conversationUsers: {
+        where: {
+          OR: [{ id: userId }, { id: currentUser.id }],
         },
-        {
-          AND: [
-            {
-              conversationUserId: {
-                equals: userId,
-              },
-            },
-            {
-              userId: {
-                equals: currentUser.id,
-              },
-            },
-          ],
-        },
-      ],
+      },
     },
   });
 
@@ -52,13 +27,16 @@ export const POST = async (request: Request) => {
 
   const newConversation = await prisma.conversation.create({
     data: {
-      conversationUserId: userId,
       isGroup: false,
-      user: {
-        connect: {
-          id: currentUser.id,
-        },
+      conversationUsers: {
+        create: [
+          { userId: currentUser.id, isOnwer: true },
+          { userId: userId, isOnwer: false },
+        ],
       },
+    },
+    include: {
+      conversationUsers: true,
     },
   });
 
