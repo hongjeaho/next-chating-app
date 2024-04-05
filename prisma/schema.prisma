@@ -37,10 +37,13 @@ model Conversation {
   isGroup Boolean
   
   messages Message[]
-
+  
   userId String
+  conversationUserId String
+
   user User @relation(fields: [userId], references: [id])
 }
+
 
 model Message {
   id String @id @default(uuid())

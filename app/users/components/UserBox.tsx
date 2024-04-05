@@ -5,6 +5,7 @@ import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface Props {
   user: User;
@@ -21,6 +22,7 @@ const UserBox: React.FC<Props> = ({ user }) => {
       .then((response) => {
         route.push(`/conversations/${response.data.id}`);
       })
+      .catch(() => toast.error("대화방을 찾을 수 없습니다."))
       .finally(() => {
         setLoading(false);
       });
