@@ -1,7 +1,7 @@
 import getSession from "./getSession";
 import prisma from "@/halper/prismadb";
 
-const users = async () => {
+const getUsers = async () => {
   const session = await getSession();
 
   if (!session?.user?.email) {
@@ -22,4 +22,4 @@ const users = async () => {
   return users;
 };
 
-export default users;
+export default getUsers;

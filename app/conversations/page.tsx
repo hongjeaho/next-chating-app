@@ -1,7 +1,7 @@
 interface Props {}
 
 const Conversations: React.FC<Props> = () => {
-  return <>PAGE</>;
+  return <></>;
 };
 
 export default Conversations;
