@@ -2,12 +2,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, PropsWithChildren } from "react";
 
 interface Props extends PropsWithChildren {
-  title?: string;
   isOpen: boolean;
   onClose: () => void;
 }
 
-const Modal: React.FC<Props> = ({ title, isOpen, onClose, children }) => {
+const Modal: React.FC<Props> = ({ isOpen, onClose, children }) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -36,17 +35,7 @@ const Modal: React.FC<Props> = ({ title, isOpen, onClose, children }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    {title && (
-                      <Dialog.Title
-                        as="h3"
-                        className="text-lg font-medium leading-6 text-gray-900"
-                      >
-                        {title}
-                      </Dialog.Title>
-                    )}
-                    {children}
-                  </div>
+                  {children}
                 </Dialog.Panel>
               </Transition.Child>
             </div>

@@ -2,6 +2,7 @@
 import Button from "@/components/form/Button";
 import Modal from "@/components/modals/Modal";
 import useConversation from "@/hooks/useConversation";
+import { Dialog } from "@headlessui/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -40,13 +41,21 @@ const ConfirmModal: React.FC<Props> = ({ isOpen, onClose }) => {
             aria-hidden="true"
           />
         </div>
-
-        <div className="mt-2">
-          <p className="text-sm text-gray-500">
-            이 대화를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.
-          </p>
+        <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+          <Dialog.Title
+            as="h3"
+            className="text-base font-semibold leading-6 text-gray-900"
+          >
+            대화 삭제
+          </Dialog.Title>
+          <div className="mt-2">
+            <p className="text-sm text-gray-500">
+              이 대화를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.
+            </p>
+          </div>
         </div>
       </div>
+
       <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
         <Button
           disabled={isLoading}
@@ -54,7 +63,6 @@ const ConfirmModal: React.FC<Props> = ({ isOpen, onClose }) => {
           onClick={handlerDelete}
           label="삭제"
         />
-
         <Button disabled={isLoading} secondary onClick={onClose} label="취소" />
       </div>
     </Modal>
