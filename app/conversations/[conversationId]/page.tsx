@@ -24,7 +24,7 @@ const ConversationDetail: React.FC<Props> = async ({ params }) => {
         ) : (
           <>
             <Header conversation={conversation} />
-            <Body messages={messages} />
+            <Body allMessages={messages} />
             <Form />
           </>
         )}

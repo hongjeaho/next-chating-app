@@ -1,7 +1,12 @@
-interface Props {}
+import { FullMessage } from "@/types";
 
-const MessageBox: React.FC<Props> = () => {
-  return <></>;
+interface Props {
+  isLast: boolean;
+  message: FullMessage;
+}
+
+const MessageBox: React.FC<Props> = ({ isLast, message }) => {
+  return <div>{message.body}</div>;
 };
 
 export default MessageBox;

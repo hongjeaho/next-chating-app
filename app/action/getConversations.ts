@@ -5,7 +5,7 @@ import users from "./getrUsers";
 const getConversations = async () => {
   const currentUser = await getCurrentUser();
 
-  if (!currentUser.id) {
+  if (!currentUser?.id) {
     return [];
   }
 
@@ -27,6 +27,9 @@ const getConversations = async () => {
         },
       },
       messages: {
+        orderBy: {
+          createAt: "asc",
+        },
         include: {
           user: true,
           observed: {

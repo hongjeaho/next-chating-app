@@ -7,7 +7,7 @@ export const POST = async (request: Request) => {
   const body = await request.json();
   const { userId } = body as { userId: string };
 
-  if (!currentUser.id) {
+  if (!currentUser?.id) {
     return NextResponse.json("Unauthorized", { status: 403 });
   }
 

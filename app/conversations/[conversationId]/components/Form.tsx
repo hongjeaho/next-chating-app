@@ -24,14 +24,14 @@ const Form: React.FC<Props> = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setValue("message", "", { shouldValidate: true });
-    axios.post("/api/message", {
+    axios.post("/api/messages", {
       ...data,
       conversationId,
     });
   };
 
   const handleUpload = (result: any) => {
-    axios.post("/api/message", {
+    axios.post("/api/messages", {
       image: result.info.secureUrl,
       conversationId,
     });

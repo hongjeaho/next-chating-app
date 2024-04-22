@@ -42,15 +42,15 @@ export const DELETE = async (
     },
   });
 
-  // existingConversation.conversationUsers.forEach((user) => {
-  //   if (user.userId) {
-  //     pusherServer.trigger(
-  //       user.userId,
-  //       "conversation:remove",
-  //       existingConversation
-  //     );
-  //   }
-  // });
+  existingConversation.conversationUsers.forEach((user) => {
+    if (user.userId) {
+      pusherServer.trigger(
+        user.userId,
+        "conversation:remove",
+        existingConversation
+      );
+    }
+  });
 
   return NextResponse.json(deletedConversation);
 };

@@ -1,5 +1,4 @@
 import prisma from "@/halper/prismadb";
-import { getSession } from "next-auth/react";
 import getCurrentUser from "./getCurrentUser";
 
 const getConversationById = async (conversationId: string) => {

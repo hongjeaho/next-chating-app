@@ -3,7 +3,7 @@ import prisma from "@/halper/prismadb";
 const getMessages = async (conversationId: string) => {
   const messages = await prisma.message.findMany({
     where: {
-      id: conversationId,
+      conversationId: conversationId,
     },
     include: {
       user: true,
