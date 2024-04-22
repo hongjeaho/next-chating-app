@@ -17,7 +17,7 @@ const Button: React.FC<Props> = ({
   onClick,
   disabled,
   icon: Icon,
-  secondary,
+  secondary = true,
   danger,
 }) => {
   return (
@@ -31,6 +31,8 @@ const Button: React.FC<Props> = ({
         disabled:opacity-70
         disabled:cursor-not-allowed
         rounded-lg
+        ring-1 ring-inset ring-gray-300
+        h-10
         hover:opacity-80
         transition
         w-full`,

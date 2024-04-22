@@ -17,8 +17,8 @@ const ConversationDetail: React.FC<Props> = async ({ params }) => {
   const messages = await getMessages(params.conversationId);
 
   return (
-    <div className="h-full lg:pl-80">
-      <div className="flex flex-col h-full">
+    <div className="lg:pl-80 h-full">
+      <div className="h-full flex flex-col">
         {!conversation ? (
           <EmptyState />
         ) : (

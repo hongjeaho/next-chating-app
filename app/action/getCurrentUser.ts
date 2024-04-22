@@ -7,7 +7,7 @@ const getCurrentUser = async () => {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
-      throw new Error("사용자 세션이없습니다.");
+      return null;
     }
 
     const user = await prisma.user.findUnique({
@@ -17,12 +17,12 @@ const getCurrentUser = async () => {
     });
 
     if (!user) {
-      throw new Error("사용자 정보가 없습니다.");
+      return null;
     }
 
     return user;
   } catch {
-    throw new Error("사용자 세션 조회중 에러가 발생 하였습니다.");
+    return null;
   }
 };
 

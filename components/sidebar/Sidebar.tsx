@@ -10,7 +10,7 @@ const Sidebar: React.FC<Props> = async ({ children }) => {
 
   return (
     <div className="h-full">
-      <DeskTopSidebar currentUser={currentUser} />
+      <DeskTopSidebar currentUser={currentUser!} />
       <MobileFooter />
       <main className="h-full lg:pl-20">{children}</main>
     </div>

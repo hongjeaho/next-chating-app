@@ -2,39 +2,44 @@ import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 interface Props {
   id: string;
-  label: string;
+  label?: string;
   type?: string;
   disabled?: boolean;
   required?: boolean;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
+  placeholder?: string;
 }
 
 const Input: React.FC<Props> = ({
   id,
   label,
   type = "text",
+  placeholder,
   disabled,
   required,
   register,
   errors,
 }) => {
   return (
-    <div>
-      <label
-        className={`
+    <div className="relative w-full">
+      {label && (
+        <label
+          className={`
           block text-sm font-medium leading-6 text-gray-900
           ${errors[id] ? "text-rose-500" : "text-zinc-400"}
         `}
-        htmlFor={id}
-      >
-        {label}
-      </label>
+          htmlFor={id}
+        >
+          {label}
+        </label>
+      )}
       <input
         id={id}
         disabled={disabled}
-        {...register(id, { required })}
+        placeholder={placeholder}
         type={type}
+        {...register(id, { required })}
         className={`
           form-input
           block 
