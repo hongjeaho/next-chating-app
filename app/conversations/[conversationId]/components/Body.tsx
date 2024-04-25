@@ -20,8 +20,7 @@ const Body: React.FC<Props> = ({ allMessages }) => {
     }
 
     const messageHandler = (message: FullMessage) => {
-      bottomRef?.current?.scrollIntoView();
-      axios.post(`api/conversations/${conversationId}/seen`);
+      // axios.post(`/api/conversations/${conversationId}/seen`);
 
       setMessages((currentMessage) => {
         if (find(currentMessage, { id: message.id })) {
@@ -34,6 +33,7 @@ const Body: React.FC<Props> = ({ allMessages }) => {
       bottomRef?.current?.scrollIntoView();
     };
 
+    bottomRef?.current?.scrollIntoView();
     pusherClient.subscribe(conversationId);
     pusherClient.bind("messages:new", messageHandler);
 

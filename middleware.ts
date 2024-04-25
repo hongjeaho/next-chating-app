@@ -1,14 +1,21 @@
 // https://next-auth.js.org/tutorials/securing-pages-and-api-routes
-import { withAuth } from "next-auth/middleware";
 
-// 로그인 되어 있지 않은 경우 로그인 페이지로 이동 처리
-export default withAuth({
-  pages: {
-    signIn: "/",
-  },
-});
+import { getToken } from "next-auth/jwt";
+import { NextRequest, NextResponse } from "next/server";
 
-// 로그인한 사용자만 접근 가능
-export const config = {
-  matcher: ["/conversations/:path*", "/users/:path*"],
+export const middleware = async (req: NextRequest) => {
+  const session = await getToken({ req, secret: process.env.JWT_SECRET });
+  const pathname = req.nextUrl.pathname;
+
+  if (pathname.startsWith("/_next/") || pathname.startsWith("/api/")) {
+    return;
+  }
+
+  if (!session && !(pathname === "/" || pathname === "")) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
+  if ((!!session && pathname === "/") || pathname === "") {
+    return NextResponse.redirect(new URL("/conversations", req.url));
+  }
 };

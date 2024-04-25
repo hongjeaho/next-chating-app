@@ -12,7 +12,6 @@ export const POST = async (request: Request) => {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
-  console.debug("######[prisma.message.create]######");
   // 새로운 메세지..
   const newMessage = await prisma.message.create({
     data: {
@@ -31,7 +30,6 @@ export const POST = async (request: Request) => {
     },
   });
 
-  console.debug("######[prisma.observed.create]######");
   // 메세지를 본 사람
   await prisma.observed.create({
     data: {
@@ -48,7 +46,6 @@ export const POST = async (request: Request) => {
     },
   });
 
-  console.debug("######[prisma.conversation.update]######");
   // 마지막 메세지 시가 및 마지막 메세지 id update
   const conversation = await prisma.conversation.update({
     where: {
@@ -69,6 +66,9 @@ export const POST = async (request: Request) => {
         },
       },
       messages: {
+        orderBy: {
+          createAt: "asc",
+        },
         include: {
           observed: true,
         },
@@ -76,9 +76,10 @@ export const POST = async (request: Request) => {
     },
   });
 
-  const lastMessage = conversation.messages.length - 1;
+  const lastMessageIndex = conversation.messages.length - 1;
+  const lastMessage = conversation.messages[lastMessageIndex];
+  pusherServer.trigger(conversationId, "messages:new", lastMessage);
 
-  await pusherServer.trigger(conversationId, "messages:new", lastMessage);
   conversation.conversationUsers
     .flatMap((item) => item.user)
     .forEach((user) => {

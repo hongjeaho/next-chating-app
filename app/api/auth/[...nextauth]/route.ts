@@ -12,6 +12,22 @@ export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    maxAge: 30 * 24 * 60 * 60,
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    async session({ session, token }) {
+      session.user = token;
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/",
+  },
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GithubProvider({
@@ -38,6 +54,10 @@ export const authOptions: AuthOptions = {
             email: credentials.email,
           },
         });
+
+        if (!user) {
+          throw new Error("Invalid credentials.");
+        }
 
         const isPassword = await bcrypt.compare(
           credentials.password,
